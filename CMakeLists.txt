@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8.0)
-project(Ptex)
+project(Ptex DESCRIPTION "A texture mapping system")
 
 option(PTEX_BUILD_STATIC_LIBS "Enable building Ptex static libraries" ON)
 option(PTEX_BUILD_SHARED_LIBS "Enable building Ptex shared libraries" ON)
@@ -116,3 +116,15 @@ add_subdirectory(src/utils)
 add_subdirectory(src/tests)
 add_subdirectory(src/doc)
 add_subdirectory(src/build)
+
+set(CPACK_GENERATOR "DEB")
+set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Andreas Wendleder <andreas.wendleder@gmail.com>")
+set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Ptex is a texture mapping system developed by Walt Disney
+	Animation Studios for production-quality rendering.")
+set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_CURRENT_LIST_DIR}/debian/triggers")
+set(CPACK_DEBIAN_PACKAGE_CONTROL_STRICT_PERMISSION TRUE)
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "doxygen (>= 1.9.1-2ubuntu2), libc6 (>= 2.36)")
+set(CPACK_DEBIAN_PACKAGE_CONTROL_EXTRA "${CMAKE_SOURCE_DIR}/debian/changelog")
+include(CPack)
+
+#configure_file(my_package.pc.in my_package.pc @ONLY)
